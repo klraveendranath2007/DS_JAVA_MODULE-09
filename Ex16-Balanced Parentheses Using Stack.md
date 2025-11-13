@@ -7,7 +7,7 @@ To write a Java program that verifies whether the parentheses (brackets) in an i
 1. 
 2. 
 3. 
-4.  
+  
 5.   
 
 ## Program:
