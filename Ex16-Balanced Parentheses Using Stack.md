@@ -1,5 +1,5 @@
 # Ex16 Check for Balanced Parentheses Using Stack
-## DATE:
+## DATE:06-10-2025
 ## AIM:
 To write a Java program that verifies whether the parentheses (brackets) in an input string are balanced — meaning each opening bracket (, {, [ has a corresponding and correctly ordered closing bracket ), }, ].
 
@@ -20,41 +20,63 @@ Developed by: K L RAVEENDRANATH
 RegisterNumber:  212224060212
 */
 
-import java.util.*;
+import java.util.Scanner;
 
-public class BalancedParentheses {
-    public static boolean isBalanced(String str) {
-        Stack<Character> stack = new Stack<>();
-        for (char ch : str.toCharArray()) {
+class ArrayStack {
+    private char[] stack;
+    private int top;
+
+    public ArrayStack(int size) {
+        stack = new char[size];
+        top = -1;
+    }
+
+    public void push(char ch) {
+        stack[++top] = ch;
+    }
+
+    public char pop() {
+        return stack[top--];
+    }
+
+    public boolean isEmpty() {
+        return top == -1;
+    }
+}
+
+public class ParenChecker {
+    public static boolean isBalanced(String expr) {
+        ArrayStack st = new ArrayStack(expr.length());
+        for (char ch : expr.toCharArray()) {
             if (ch == '(' || ch == '{' || ch == '[') {
-                stack.push(ch);
+                st.push(ch);
             } else if (ch == ')' || ch == '}' || ch == ']') {
-                if (stack.isEmpty()) return false;
-                char top = stack.pop();
+                if (st.isEmpty()) return false;
+                char top = st.pop();
                 if ((ch == ')' && top != '(') ||
                     (ch == '}' && top != '{') ||
-                    (ch == ']' && top != '['))
+                    (ch == ']' && top != '[')) {
                     return false;
+                }
             }
         }
-        return stack.isEmpty();
+        return st.isEmpty();
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter expression: ");
         String expr = sc.nextLine();
-        if (isBalanced(expr))
-            System.out.println("Balanced");
-        else
-            System.out.println("Not Balanced");
+        boolean ok = isBalanced(expr);
+        System.out.println(ok);
         sc.close();
     }
 }
+
 ```
 
 ## Output:
-<img width="567" height="160" alt="image" src="https://github.com/user-attachments/assets/523b2b30-f1bb-4edc-9645-65de1832b8c7" />
+<img width="434" height="166" alt="image" src="https://github.com/user-attachments/assets/fc3cbd3a-2cbb-45d7-86e9-83757feb517d" />
+
 
 ## Result:
 Thus,the program correctly checks whether an input string has balanced parentheses using a stack.
