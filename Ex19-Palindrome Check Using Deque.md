@@ -1,5 +1,5 @@
 # Ex19 Palindrome Check Using Deque
-## DATE:
+## DATE:16-10-2025
 ## AIM:
 To design a program that checks whether a given message is a palindrome by removing all non-alphanumeric characters, converting all characters to lowercase, and using a deque data structure for comparison.
 
@@ -22,38 +22,50 @@ RegisterNumber:  212224060212
 
 import java.util.*;
 
-public class PalindromeDeque {
-    public static boolean isPalindrome(String str) {
-        Deque<Character> deque = new LinkedList<>();
-        for (char c : str.toCharArray()) {
-            if (Character.isLetterOrDigit(c)) {
-                deque.add(Character.toLowerCase(c));
+public class PalindromeChecker {
+    
+    public static boolean isPalindrome(String message) {
+        // Convert to lowercase and remove non-alphanumeric characters
+        message = message.toLowerCase().replaceAll("[^a-z0-9]", "");
+        
+        Deque<Character> deque = new ArrayDeque<>();
+        
+        // Add all characters to the deque
+        for (char c : message.toCharArray()) {
+            deque.addLast(c);
+        }
+        
+        // Compare characters from both ends
+        while (deque.size() > 1) {
+            if (deque.pollFirst() != deque.pollLast()) {
+                return false;  // Mismatch found
             }
         }
-
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast())
-                return false;
-        }
-        return true;
+        
+        return true;  // All characters matched
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a message: ");
-        String message = sc.nextLine();
-        if (isPalindrome(message))
+        Scanner scanner = new Scanner(System.in);
+
+        //System.out.println("Enter a message:");
+        String input = scanner.nextLine();
+
+        if (isPalindrome(input)) {
             System.out.println("Palindrome");
-        else
-            System.out.println("Not a Palindrome");
-        sc.close();
+        } else {
+            System.out.println("Not a palindrome");
+        }
+
+        scanner.close();
     }
 }
 
 ```
 
 ## Output:
-<img width="597" height="149" alt="image" src="https://github.com/user-attachments/assets/014bfa6f-c4b7-495a-83bf-a5df5f58ec3f" />
+<img width="447" height="165" alt="image" src="https://github.com/user-attachments/assets/bbbfe3c8-16a3-447b-a7d5-cf5ad1aa1664" />
+
 
 
 
