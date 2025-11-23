@@ -1,5 +1,5 @@
 # Ex18 Simulation of a Ticket Counter Using Queue (Linked List Implementation)
-## DATE:
+## DATE:13-10-2025
 ## AIM:
 To simulate the functioning of a ticket counter that operates on a First-In-First-Out (FIFO) basis using a queue implemented via a linked list in Java.
 ## Algorithm
@@ -19,48 +19,55 @@ Developed by: K L RAVEENDRANATH
 RegisterNumber:  212224060212
 */
 
+import java.util.Scanner;
 class Node {
-    String data;
+    String customerName;
     Node next;
-    Node(String data) {
-        this.data = data;
+
+    public Node(String name) {
+        this.customerName = name;
         this.next = null;
     }
 }
 
-class Queue {
-    Node front, rear;
-    
-    void enqueue(String data) {
-        Node newNode = new Node(data);
+class TicketQueue {
+    private Node front;
+    private Node rear;
+
+    public TicketQueue() {
+        this.front = this.rear = null;
+    }
+
+    public void enqueue(String customerName) {
+        Node newNode = new Node(customerName);
         if (rear == null) {
             front = rear = newNode;
-            return;
+        } else {
+            rear.next = newNode;
+            rear = newNode;
         }
-        rear.next = newNode;
-        rear = newNode;
     }
 
-    void dequeue() {
+    public void dequeue() {
         if (front == null) {
-            System.out.println("Queue is empty.");
+            System.out.println("Queue is empty. No customer to serve.");
             return;
         }
-        System.out.println(front.data + " has been served.");
+        System.out.println("Serving customer: " + front.customerName);
         front = front.next;
-        if (front == null)
-            rear = null;
+        if (front == null) rear = null;
     }
 
-    void display() {
+    public void displayQueue() {
         if (front == null) {
             System.out.println("Queue is empty.");
             return;
         }
         Node temp = front;
-        System.out.print("Current Queue: ");
+        System.out.print("Queue: ");
         while (temp != null) {
-            System.out.print(temp.data + " ");
+            System.out.print(temp.customerName);
+            if (temp.next != null) System.out.print(" -> ");
             temp = temp.next;
         }
         System.out.println();
@@ -69,21 +76,43 @@ class Queue {
 
 public class TicketCounter {
     public static void main(String[] args) {
-        Queue q = new Queue();
-        q.enqueue("Alice");
-        q.enqueue("Bob");
-        q.enqueue("Charlie");
-        q.enqueue("Diana");
-        q.display();
-        q.dequeue();
-        q.display();
+        Scanner scanner = new Scanner(System.in);
+        TicketQueue queue = new TicketQueue();
+
+        while (true) {
+            if (!scanner.hasNextLine()) break;
+            String command = scanner.nextLine().trim();
+            if (command.isEmpty()) continue;
+
+            String[] parts = command.split(" ");
+
+            switch (parts[0]) {
+                case "enqueue":
+                    if (parts.length >= 2) queue.enqueue(parts[1]);
+                    break;
+                case "dequeue":
+                    queue.dequeue();
+                    break;
+                case "display":
+                    queue.displayQueue();
+                    break;
+                case "exit":
+                    System.out.println("Exiting simulation.");
+                    scanner.close();
+                    return;
+            }
+        }
+        scanner.close();
     }
 }
+
+
 
 ```
 
 ## Output:
-<img width="521" height="180" alt="image" src="https://github.com/user-attachments/assets/809d8ddc-8d35-486c-a3ec-774ff92e123e" />
+<img width="1036" height="671" alt="image" src="https://github.com/user-attachments/assets/af272500-c611-4d5f-ad25-917338975b1b" />
+
 
 ## Result:
 Thus, the program successfully simulates a ticket counter queue where customers are served in FIFO order using a linked list-based queue implementation.
