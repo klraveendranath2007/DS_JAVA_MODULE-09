@@ -1,5 +1,5 @@
 # Ex17 Reversing a String Using Stack Data Structure
-## DATE:
+## DATE:09-10-2025
 ## AIM:
 To write a Java program that reverses an input string using a stack, without using built-in reverse functions.
 
@@ -19,29 +19,40 @@ Developed by: K L RAVEENDRANATH
 RegisterNumber:  212224060212
 */
 
-import java.util.*;
+import java.util.Scanner;
+import java.util.Stack;
 
-public class ReverseStringStack {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a string: ");
-        String str = sc.nextLine();
+public class ReverseStringWithStack {
+
+    public static String reverseString(String input) {
         Stack<Character> stack = new Stack<>();
-        for (char ch : str.toCharArray())
+        for (char ch : input.toCharArray()) {
             stack.push(ch);
-
+        }
         StringBuilder reversed = new StringBuilder();
-        while (!stack.isEmpty())
+        while (!stack.isEmpty()) {
             reversed.append(stack.pop());
+        }
 
-        System.out.println("Reversed string: " + reversed.toString());
-        sc.close();
+        return reversed.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        String reversed = reverseString(input);
+
+        // Display result
+        System.out.println(reversed);
+
+        scanner.close();
     }
 }
 ```
 
 ## Output:
-<img width="569" height="160" alt="image" src="https://github.com/user-attachments/assets/0bf78166-6eb1-410e-9bf8-3fa72c10b529" />
+<img width="418" height="161" alt="image" src="https://github.com/user-attachments/assets/47344336-9c2e-45be-8df8-c5ba3f0b985b" />
+
 
 
 ## Result:
